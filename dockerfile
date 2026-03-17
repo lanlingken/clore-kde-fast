@@ -17,8 +17,8 @@ RUN echo 'export GTK_IM_MODULE=fcitx' >> /etc/profile && echo 'export QT_IM_MODU
 # 4. SSH配置
 RUN mkdir /var/run/sshd && echo 'root:Cloud123' | chpasswd && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
-# 5. Sunshine串流服务
-RUN wget -q https://github.com/LizardByte/Sunshine/releases/download/v0.20.0/sunshine_0.20.0_amd64.deb && apt-get install -y ./sunshine_0.20.0_amd64.deb && rm sunshine_0.20.0_amd64.deb
+# 5. Sunshine串流服务（修复版）
+RUN wget -q https://github.com/LizardByte/Sunshine/releases/download/v2025.924.154138/sunshine-ubuntu-22.04-amd64.deb && apt-get install -y ./sunshine-ubuntu-22.04-amd64.deb && rm sunshine-ubuntu-22.04-amd64.deb
 
 # 6. Sunshine配置
 RUN mkdir -p /root/.config/sunshine && echo '{"username":"admin","password":"Cloud123","apps":[{"name":"Desktop","cmd":"startplasma-x11"},{"name":"Terminal","cmd":"konsole"}]}' > /root/.config/sunshine/config.json
