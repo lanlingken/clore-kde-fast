@@ -24,7 +24,7 @@ RUN curl -fSsl https://raw.githubusercontent.com/LizardByte/Sunshine/master/inst
 RUN mkdir -p /root/.config/sunshine && echo '{"username":"admin","password":"Cloud123","apps":[{"name":"Desktop","cmd":"startplasma-x11"},{"name":"Terminal","cmd":"konsole"}]}' > /root/.config/sunshine/config.json
 
 # 7. 启动脚本
-RUN echo '#!/bin/bash\n/usr/sbin/sshd -D &\nXvfb :1 -screen 0 1920x1080x24 &\nsleep 2\nDISPLAY=:1 startplasma-x11 &\nsleep 3\nx11vnc -display :1 -forever -shared -rfbport 5901 -nopw &\nsunshine &\ntail -f /dev/null' > /start.sh && chmod +x /start.sh
+RUN echo $'#!/bin/bash\n/usr/sbin/sshd -D &\nXvfb :1 -screen 0 1920x1080x24 &\nsleep 2\nDISPLAY=:1 startplasma-x11 &\nsleep 3\nx11vnc -display :1 -forever -shared -rfbport 5901 -nopw &\nsunshine &\ntail -f /dev/null' > /start.sh && chmod +x /start.sh
 
 EXPOSE 22 47990 48000 48010 5901
 CMD ["/start.sh"]
