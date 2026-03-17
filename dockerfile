@@ -8,19 +8,19 @@ ENV LC_ALL=zh_CN.UTF-8
 RUN apt-get update && apt-get install -y software-properties-common wget curl git vim nano htop net-tools openssh-server locales && rm -rf /var/lib/apt/lists/*
 RUN sed -i '/zh_CN.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
 
-# 2. KDE桌面 + 输入法 + 虚拟显示
+# 2. KDE 桌面 + 输入法 + 虚拟显示
 RUN add-apt-repository ppa:kubuntu-ppa/backports -y && apt-get update && apt-get install -y kubuntu-desktop fcitx5 fcitx5-pinyin fonts-noto-cjk x11vnc xvfb && rm -rf /var/lib/apt/lists/*
 
 # 3. 输入法配置
 RUN echo 'export GTK_IM_MODULE=fcitx' >> /etc/profile && echo 'export QT_IM_MODULE=fcitx' >> /etc/profile && echo 'export XMODIFIERS=@im=fcitx' >> /etc/profile
 
-# 4. SSH配置
+# 4. SSH 配置
 RUN mkdir /var/run/sshd && echo 'root:Cloud123' | chpasswd && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
-# 5. Sunshine串流服务（修复版）
-RUN wget -q https://github.com/LizardByte/Sunshine/releases/download/v2025.924.154138/sunshine-ubuntu-22.04-amd64.deb && apt-get install -y ./sunshine-ubuntu-22.04-amd64.deb && rm sunshine-ubuntu-22.04-amd64.deb
+# 5. Sunshine 串流服务（使用官方安装脚本，最稳定）
+RUN curl -fSsl https://raw.githubusercontent.com/LizardByte/Sunshine/master/installs/linux/install.sh | bash
 
-# 6. Sunshine配置
+# 6. Sunshine 配置
 RUN mkdir -p /root/.config/sunshine && echo '{"username":"admin","password":"Cloud123","apps":[{"name":"Desktop","cmd":"startplasma-x11"},{"name":"Terminal","cmd":"konsole"}]}' > /root/.config/sunshine/config.json
 
 # 7. 启动脚本
