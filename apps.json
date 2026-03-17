@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "name": "Desktop",
+      "cmd": "",
+      "image-path": ""
+    },
+    {
+      "name": "Konsole",
+      "cmd": "konsole",
+      "image-path": ""
+    }
+  ]
+}
